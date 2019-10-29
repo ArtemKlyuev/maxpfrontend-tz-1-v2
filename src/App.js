@@ -1,19 +1,36 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Route, Redirect, Switch } from 'react-router-dom';
+import { connect } from 'react-redux';
+import * as actions from './redux/actions/auth';
 import Layout from './hoc/Layout/Layout';
 import Root from './components/Root/Root';
 import Auth from './containers/Auth/Auth';
+import Profile from './components/Profile/Profile';
 
-function App() {
+const App = (props) => {
+    useEffect(() => props.onTryAutoSignin(), []);
+
     return (
         <Layout>
             <Switch>
-                <Route path="/login" exact component={Auth} />
+                <Route path="/login" component={Auth} />
+                <Route path="/profile" component={Profile} />
                 <Route path="/" exact component={Root} />
-                {/* <Redirect to="/" /> */}
+                <Redirect to="/" />
             </Switch>
         </Layout>
     );
-}
+};
 
-export default App;
+// const mapStateToProps = state => ({isAuth:state.isAuth});
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        onTryAutoSignin: () => dispatch(actions.checkAuthState())
+    };
+};
+
+export default connect(
+    null,
+    mapDispatchToProps
+)(App);

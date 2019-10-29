@@ -9,7 +9,7 @@ const input = (props) => {
         inputClasses.push(classes.Invalid);
     }
 
-    switch (props.type) {
+    switch (props.elementType) {
         case 'input':
             inputClasses.push(classes.Input);
 
@@ -18,7 +18,9 @@ const input = (props) => {
                     className={inputClasses.join(' ')}
                     value={props.value}
                     onChange={props.changed}
-                    {...props.elementConfig}
+                    placeholder={props.placeholder}
+                    type={props.type}
+                    required={props.required}
                 />
             );
             break;
