@@ -5,7 +5,7 @@ const fetchUserDataStart = () => ({
 });
 
 const fetchUserDataSuccess = (data) => ({
-    type: actionTypes.FETCH_USER_DATA_START,
+    type: actionTypes.FETCH_USER_DATA_SUCCESS,
     data
 });
 
@@ -21,11 +21,11 @@ export const fetchUserData = () => {
             .then((res) => res.json())
             .then((data) => {
                 console.log(data);
-                fetchUserDataSuccess(data);
+                dispatch(fetchUserDataSuccess(data));
             })
             .catch((err) => {
                 console.log('user data error', err);
-                fetchUserDataFail(err);
+                dispatch(fetchUserDataFail(err));
             });
     };
 };
