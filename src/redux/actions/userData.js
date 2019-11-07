@@ -17,7 +17,7 @@ const fetchUserDataFail = (error) => ({
 export const fetchUserData = () => {
     return (dispatch) => {
         dispatch(fetchUserDataStart());
-        fetch('https://jsonplaceholder.typicode.com/users/1k')
+        fetch('https://jsonplaceholder.typicode.com/users/1')
             .then((res) => {
                 if (!res.ok) {
                     console.log('res.statusText', res);
