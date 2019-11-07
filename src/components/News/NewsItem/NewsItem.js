@@ -12,7 +12,8 @@ const newsItem = (props) => {
         title,
         url,
         urlToImage,
-        isPreview
+        isPreview,
+        index
     } = props;
 
     const date = new Date(publishedAt);
@@ -49,7 +50,7 @@ const newsItem = (props) => {
     };
 
     const moreInfoBtn = (
-        <Link to={(location) => `${location.pathname}/1`}>
+        <Link to={(location) => `${location.pathname}/${index}`}>
             <Button clicked={moreInfoHandler}>Читать далее</Button>
         </Link>
     );

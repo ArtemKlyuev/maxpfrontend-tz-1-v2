@@ -18,10 +18,11 @@ class News extends React.Component {
             console.log(typeof news);
             console.log('news', news);
             console.log('loading', loading);
-            totalNews = news.map((item) => (
+            totalNews = news.map((item, i) => (
                 <NewsItem
                     key={item.title}
                     isPreview={isNewsPreview}
+                    index={i + 1}
                     {...item}
                 />
             ));

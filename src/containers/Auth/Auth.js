@@ -106,6 +106,12 @@ class Auth extends React.Component {
             redirect = <Redirect to={this.props.authRedirectPath} />;
         }
 
+        const errorMsg = (
+            <p style={{ color: 'red' }}>
+                Имя пользователя или пароль введены не верно
+            </p>
+        );
+
         return (
             <React.Fragment>
                 {redirect}
@@ -114,6 +120,7 @@ class Auth extends React.Component {
                     onSubmit={(e) => this.sumbitHandler(e)}
                 >
                     {formEls}
+                    {this.props.error && errorMsg}
                     <Button>Войти</Button>
                 </form>
             </React.Fragment>

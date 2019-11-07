@@ -10,3 +10,9 @@
 .NavigationItem.active {
     color: rgb(97, 218, 251);
 }
+
+@media (max-width: 460px) {
+    .NavigationItem {
+        margin: 10px 0;
+    }
+}

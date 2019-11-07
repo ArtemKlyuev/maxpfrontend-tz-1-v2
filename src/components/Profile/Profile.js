@@ -8,7 +8,9 @@ class Profile extends React.Component {
     componentDidMount() {
         console.log('kek');
 
-        this.props.onFetchUserData();
+        if (this.props.isAuth) {
+            this.props.onFetchUserData();
+        }
     }
 
     render() {
@@ -19,8 +21,6 @@ class Profile extends React.Component {
         if (!this.props.isAuth) {
             redirect = <Redirect to="/login" />;
         }
-
-        // const userProfile = null;
 
         return (
             <React.Fragment>

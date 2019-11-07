@@ -8,6 +8,7 @@ import Auth from './containers/Auth/Auth';
 import Profile from './components/Profile/Profile';
 import News from './containers/News/News';
 import NewsItemPage from './components/News/NewsItemPage/NewsItemPage';
+import NotFound from './components/NotFound/NotFound';
 
 const App = (props) => {
     useEffect(() => props.onTryAutoSignin(), []);
@@ -20,6 +21,7 @@ const App = (props) => {
                 <Route path="/news" exact component={News} />
                 <Route path="/news/:id" component={NewsItemPage} />
                 <Route path="/" exact component={Root} />
+                <Route path="*" component={NotFound} />
                 <Redirect to="/" />
             </Switch>
         </Layout>
