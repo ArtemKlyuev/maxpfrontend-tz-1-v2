@@ -10,17 +10,23 @@ const fetchUserDataSuccess = (data) => ({
 });
 
 const fetchUserDataFail = (error) => ({
-    type: actionTypes.FETCH_USER_DATA_START,
+    type: actionTypes.FETCH_USER_DATA_FAIL,
     error
 });
 
 export const fetchUserData = () => {
     return (dispatch) => {
         dispatch(fetchUserDataStart());
-        fetch('https://jsonplaceholder.typicode.com/users/1')
-            .then((res) => res.json())
+        fetch('https://jsonplaceholder.typicode.com/users/1k')
+            .then((res) => {
+                if (!res.ok) {
+                    console.log('res.statusText', res);
+                    throw new Error(res.statusText);
+                }
+                return res.json();
+            })
             .then((data) => {
-                console.log(data);
+                console.log('data', data);
                 dispatch(fetchUserDataSuccess(data));
             })
             .catch((err) => {

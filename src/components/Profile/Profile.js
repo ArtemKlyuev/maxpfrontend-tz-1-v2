@@ -14,17 +14,34 @@ class Profile extends React.Component {
     }
 
     render() {
+        const { isAuth, error, userData, loading } = this.props;
         let redirect = null;
+        let userProfile = <UserProfile {...userData} />;
+
+        if (loading) {
+            userProfile = (
+                <p style={{ textAlign: 'center' }}>
+                    Идёт загрузка данных, пожалуйста, подождите
+                </p>
+            );
+        }
 
         console.log('this.props', this.props);
 
-        if (!this.props.isAuth) {
+        if (!isAuth) {
             redirect = <Redirect to="/login" />;
         }
 
         return (
             <React.Fragment>
-                {redirect} <UserProfile {...this.props.userData} />
+                {redirect}
+                {error ? (
+                    <p style={{ textAlign: 'center' }}>
+                        Произошла ошибка при загрузке данных
+                    </p>
+                ) : (
+                    userProfile
+                )}
             </React.Fragment>
         );
     }
@@ -36,7 +53,9 @@ const mapDispatchToProps = (dispatch) => ({
 
 const mapStateToProps = (state) => ({
     isAuth: state.auth.isAuth,
-    userData: state.userData.userData
+    userData: state.userData.userData,
+    error: state.userData.error,
+    loading: state.userData.loading
 });
 
 export default connect(

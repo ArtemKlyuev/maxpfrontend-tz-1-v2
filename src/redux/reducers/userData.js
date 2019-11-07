@@ -2,15 +2,23 @@ import * as actionTypes from '../actions/actionTypes';
 import { updateObject } from '../../shared/utility';
 
 const initialState = {
-    userData: null
+    userData: null,
+    error: false,
+    loading: true
 };
 
-const fetchUserDataStart = (state, action) => state;
+const fetchUserDataStart = (state, action) =>
+    updateObject(state, { error: false, loading: true });
 
 const fetchUserDataSuccesss = (state, action) =>
-    updateObject(state, { userData: action.data });
+    updateObject(state, {
+        userData: action.data,
+        error: false,
+        loading: false
+    });
 
-const fetchUserDataFail = (state, action) => state;
+const fetchUserDataFail = (state, action) =>
+    updateObject(state, { error: true, loading: false });
 
 const reducer = (state = initialState, action) => {
     switch (action.type) {
