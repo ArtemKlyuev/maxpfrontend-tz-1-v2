@@ -10,9 +10,13 @@ class News extends React.Component {
     }
 
     render() {
-        const { news, loading } = this.props;
+        const { news, loading, error } = this.props;
         const isNewsPreview = this.props.match.url === '/news';
-        let totalNews = null;
+        let totalNews = (
+            <p style={{ textAlign: 'center' }}>
+                Идёт загрузка данных, пожалуйста, подождите
+            </p>
+        );
 
         if (!loading) {
             console.log(typeof news);
@@ -30,7 +34,17 @@ class News extends React.Component {
 
         console.log('News Props', this.props);
 
-        return <React.Fragment>{totalNews}</React.Fragment>;
+        return (
+            <React.Fragment>
+                {error ? (
+                    <p style={{ textAlign: 'center' }}>
+                        Произошла ошибка при загрузке данных
+                    </p>
+                ) : (
+                    totalNews
+                )}
+            </React.Fragment>
+        );
     }
 }
 
@@ -41,6 +55,7 @@ const mapDispatchToProps = (dispatch) => ({
 const mapStateToProps = (state) => ({
     news: state.news.news,
     loading: state.news.loading,
+    error: state.news.error,
     isMoreInfoClicked: state.news.isMoreInfoClicked,
     fullNewsItemToLoad: state.news.fullNewsItemToLoad
 });

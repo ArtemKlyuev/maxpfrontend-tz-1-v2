@@ -4,18 +4,19 @@ import { updateObject } from '../../shared/utility';
 const initialState = {
     news: null,
     loading: true,
+    error: false,
     isMoreInfoClicked: false,
     fullNewsItemToLoad: null
 };
 
 const fetchNewsStart = (state, action) =>
-    updateObject(state, { loading: true });
+    updateObject(state, { loading: true, error: false });
 
 const fetchNewsFail = (state, action) =>
-    updateObject(state, { loading: false });
+    updateObject(state, { loading: false, error: true });
 
 const fetchNewsSuccess = (state, action) =>
-    updateObject(state, { news: action.news, loading: false });
+    updateObject(state, { news: action.news, loading: false, error: false });
 
 const moreInfoClicked = (state, action) =>
     updateObject(state, { fullNewsItemToLoad: action.newsItem });
