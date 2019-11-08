@@ -1,0 +1,21 @@
+{
+  "files": {
+    "main.css": "/maxpfrontend-tz-1-v2/static/css/main.a7120bad.chunk.css",
+    "main.js": "/maxpfrontend-tz-1-v2/static/js/main.68377765.chunk.js",
+    "main.js.map": "/maxpfrontend-tz-1-v2/static/js/main.68377765.chunk.js.map",
+    "runtime-main.js": "/maxpfrontend-tz-1-v2/static/js/runtime-main.381e6fd5.js",
+    "runtime-main.js.map": "/maxpfrontend-tz-1-v2/static/js/runtime-main.381e6fd5.js.map",
+    "static/js/2.5a5e8581.chunk.js": "/maxpfrontend-tz-1-v2/static/js/2.5a5e8581.chunk.js",
+    "static/js/2.5a5e8581.chunk.js.map": "/maxpfrontend-tz-1-v2/static/js/2.5a5e8581.chunk.js.map",
+    "index.html": "/maxpfrontend-tz-1-v2/index.html",
+    "precache-manifest.863d94651de2e60a4cd854d2e406b3ec.js": "/maxpfrontend-tz-1-v2/precache-manifest.863d94651de2e60a4cd854d2e406b3ec.js",
+    "service-worker.js": "/maxpfrontend-tz-1-v2/service-worker.js",
+    "static/css/main.a7120bad.chunk.css.map": "/maxpfrontend-tz-1-v2/static/css/main.a7120bad.chunk.css.map"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.381e6fd5.js",
+    "static/js/2.5a5e8581.chunk.js",
+    "static/css/main.a7120bad.chunk.css",
+    "static/js/main.68377765.chunk.js"
+  ]
+}
