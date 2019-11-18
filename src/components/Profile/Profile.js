@@ -6,8 +6,6 @@ import UserProfile from '../../components/UserProfile/UserProfile';
 
 class Profile extends React.Component {
     componentDidMount() {
-        console.log('kek');
-
         if (this.props.isAuth) {
             this.props.onFetchUserData();
         }
@@ -25,8 +23,6 @@ class Profile extends React.Component {
                 </p>
             );
         }
-
-        console.log('this.props', this.props);
 
         if (!isAuth) {
             redirect = <Redirect to="/login" />;

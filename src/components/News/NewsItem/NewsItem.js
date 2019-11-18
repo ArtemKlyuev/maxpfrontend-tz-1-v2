@@ -39,7 +39,6 @@ const newsItem = (props) => {
     }
 
     const moreInfoHandler = (e) => {
-        console.log(e.currentTarget);
         props.onMoreInfoClicked({
             description,
             publishedAt,

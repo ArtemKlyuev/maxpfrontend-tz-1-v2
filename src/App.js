@@ -11,7 +11,9 @@ import NewsItemPage from './components/News/NewsItemPage/NewsItemPage';
 import NotFound from './components/NotFound/NotFound';
 
 const App = (props) => {
-    useEffect(() => props.onTryAutoSignin(), []);
+    useEffect(() => {
+        props.onTryAutoSignin();
+    }, []);
 
     return (
         <Layout>
@@ -36,7 +38,4 @@ const mapDispatchToProps = (dispatch) => {
     };
 };
 
-export default connect(
-    null,
-    mapDispatchToProps
-)(App);
+export default connect(null, mapDispatchToProps)(App);

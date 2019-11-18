@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import { updateObject, checkValidity } from '../../shared/utility';
@@ -7,126 +7,114 @@ import Button from '../../components/UI/Button/Button';
 import Input from '../../components/UI/Input/Input';
 import classes from './Auth.module.css';
 
-class Auth extends React.Component {
-    state = {
-        controls: {
-            username: {
-                elementType: 'input',
-                elementConfig: {
-                    type: 'text',
-                    placeholder: 'Username'
-                },
-                value: '',
-                validation: {
-                    required: true
-                },
-                valid: false,
-                touched: false
+const Auth = (props) => {
+    const [authForm, setAuthForm] = useState({
+        username: {
+            elementType: 'input',
+            elementConfig: {
+                type: 'text',
+                placeholder: 'Username'
             },
-            password: {
-                elementType: 'input',
-                elementConfig: {
-                    type: 'password',
-                    placeholder: 'Password'
-                },
-                value: '',
-                validation: {
-                    required: true,
-                    minLength: 5
-                },
-                valid: false,
-                touched: false
-            }
+            value: '',
+            validation: {
+                required: true
+            },
+            valid: false,
+            touched: false
         },
-        auth: {
-            username: 'Admin',
-            password: 12345
+        password: {
+            elementType: 'input',
+            elementConfig: {
+                type: 'password',
+                placeholder: 'Password'
+            },
+            value: '',
+            validation: {
+                required: true,
+                minLength: 5
+            },
+            valid: false,
+            touched: false
         }
-    };
+    });
 
-    componentDidMount() {
-        this.props.onSetAuthRedirectPath('/profile');
-    }
+    const [admin, setAdmin] = useState({
+        username: 'Admin',
+        password: 12345
+    });
 
-    inputChangedHandler = (e, controlName) => {
-        const { controls } = this.state;
+    useEffect(() => {props.onSetAuthRedirectPath('/profile')}, []);
 
-        const updatedControls = updateObject(controls, {
-            [controlName]: updateObject(controls[controlName], {
+    const inputChangedHandler = (e, controlName) => {
+        const updatedControls = updateObject(authForm, {
+            [controlName]: updateObject(authForm[controlName], {
                 value: e.currentTarget.value,
                 valid: checkValidity(
                     controlName,
-                    controls[controlName].validation
+                    authForm[controlName].validation
                 ),
                 touched: true
             })
         });
 
-        this.setState({ controls: updatedControls });
+        setAuthForm(updatedControls);
     };
 
-    sumbitHandler = (e) => {
+    const sumbitHandler = (e) => {
         e.preventDefault();
 
-        const { username, password } = this.state.controls;
+        const { username, password } = authForm;
 
-        this.props.onAuth(username.value, Number(password.value));
+        props.onAuth(username.value, Number(password.value));
     };
 
-    render() {
-        const formEls = [];
-        const { controls } = this.state;
+    const formEls = [];
 
-        Object.keys(controls).forEach((el) => {
-            // console.log('el', controls[el]);
-            const { type, placeholder } = controls[el].elementConfig;
-            const { required } = controls[el].validation;
-            const { elementType, value, valid, touched } = controls[el];
+    Object.keys(authForm).forEach((el) => {
+        const { type, placeholder } = authForm[el].elementConfig;
+        const { required } = authForm[el].validation;
+        const { elementType, value, valid, touched } = authForm[el];
 
-            const input = (
-                <Input
-                    key={placeholder}
-                    type={type}
-                    placeholder={placeholder}
-                    elementType={elementType}
-                    value={value}
-                    touched={touched}
-                    invalid={valid}
-                    required={required}
-                    changed={(e) => this.inputChangedHandler(e, el)}
-                />
-            );
-
-            formEls.push(input);
-        });
-
-        let redirect = null;
-
-        if (this.props.isAuth) {
-            redirect = <Redirect to={this.props.authRedirectPath} />;
-        }
-
-        const errorMsg = (
-            <p style={{ color: 'red' }}>
-                Имя пользователя или пароль введены не верно
-            </p>
+        const input = (
+            <Input
+                key={placeholder}
+                type={type}
+                placeholder={placeholder}
+                elementType={elementType}
+                value={value}
+                touched={touched}
+                invalid={valid}
+                required={required}
+                changed={(e) => inputChangedHandler(e, el)}
+            />
         );
 
-        return (
-            <React.Fragment>
-                {redirect}
-                <form
-                    className={classes.Form}
-                    onSubmit={(e) => this.sumbitHandler(e)}
-                >
-                    {formEls}
-                    {this.props.error && errorMsg}
-                    <Button>Войти</Button>
-                </form>
-            </React.Fragment>
-        );
+        formEls.push(input);
+    });
+
+    let redirect = null;
+
+    if (props.isAuth) {
+        redirect = <Redirect to={props.authRedirectPath} />;
     }
-}
+
+    const errorMsg = (
+        <p style={{ color: 'red' }}>
+            Имя пользователя или пароль введены не верно
+        </p>
+    );
+
+    return (
+        <React.Fragment>
+            {redirect}
+            <form className={classes.Form} onSubmit={(e) => sumbitHandler(e)}>
+                {formEls}
+                {props.error && errorMsg}
+                <Button>Войти</Button>
+            </form>
+        </React.Fragment>
+    );
+};
 
 const mapDispatchToProps = (dispatch) => ({
     onAuth: (username, password) => dispatch(actions.auth(username, password)),
@@ -140,7 +128,4 @@ const mapStateToProps = (state) => ({
     authRedirectPath: state.auth.authRedirectPath
 });
 
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(Auth);
+export default connect(mapStateToProps, mapDispatchToProps)(Auth);
