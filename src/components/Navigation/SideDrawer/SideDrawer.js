@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import NavigationItems from '../NavigationsItems/NavigationItems';
+import Backdrop from '../../UI/Backdrop/Backdrop';
 import classes from './SideDrawer.module.css';
 
-const sideDrawer = props => {
+const sideDrawer = (props) => {
     let attachedClasses = [classes.SideDrawer, classes.Close];
 
     if (props.open) {
@@ -10,9 +11,12 @@ const sideDrawer = props => {
     }
 
     return (
-        <div className={attachedClasses.join(' ')} onClick={props.closed}>
-            <NavigationItems />
-        </div>
+        <Fragment>
+            <Backdrop show={props.open} clicked={props.closed} />
+            <div className={attachedClasses.join(' ')} onClick={props.closed}>
+                <NavigationItems />
+            </div>
+        </Fragment>
     );
 };
 
