@@ -3,8 +3,8 @@
 Само [задание](https://hackmd.io/@b1hdcBB2Qmu9KtH_ycT20Q/BJWYLsmD4?type=view)
 
 * [x] выполнен базовый функционал
-[x] использованы react-hooks
-[x] использована redux-saga
+* [x] использованы react-hooks
+* [x] использована redux-saga
 
 ## [Результат(демо)](https://maxpfront-tz-1.firebaseapp.com/)
 
